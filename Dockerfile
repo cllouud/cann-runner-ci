@@ -1,4 +1,4 @@
-FROM ascendai/cann:latest as build
+FROM mcr.microsoft.com/dotnet/runtime-deps:8.0-jammy as build
 
 # Replace value with the latest runner release version
 # source: https://github.com/actions/runner/releases
