@@ -1,5 +1,6 @@
-# 组织管理员
-
+# 组织管理员->组织/仓库如何为github action接入昇腾设备
+## 准备工作
+需要具备组织的管理权限
 ## 1 安装 github app
 在浏览器输入`https://github.com/apps/ascend-runner-mgmt`并且点击`Install`或者`Configure`
 ![alt text](assets/使用说明文档/image-3.png)
@@ -34,11 +35,14 @@ my-org/my-repo/.github/workflows/my.yaml@main
 ## 4 等待后端配置
 提交给后端的字段有
 ```yaml
-installation-id: 61307243
-group-name: ascend-ci
+# github app的installation id.
+installation-id: myinstallationid
+# runner group的group name.
+group-name: mygroupname
+# npu-counts表示runner包含的npu卡的数量。1, 2表示2种runner，单卡runer和2卡runner。
 npu-counts: 1, 2
 ```
-后端配置好后，可以在runners查看。`Status`为`Online`表示可以运行。为`Offline`表示无法运行。
+后端配置好后，可以在runners查看。`Status`为`Online`表示可以运行,为`Offline`表示无法运行。
 ![alt text](<assets/user manual/image-4.png>)
 
 ## 5 测试使用
@@ -66,7 +70,21 @@ jobs:
 ![alt text](<assets/user manual/image-5.png>)
 
 
-# workflow使用者
+# workflow使用者->如何在github action中使用昇腾设备
+## 准备工作
+已经完成[组织仓库接入昇腾设备](#组织管理员-组织仓库如何为github-action接入昇腾设备)中的步骤
+
+## 操作步骤
 使用者只需将`runs-on`字段填写为`runners group`中的`runners`字段即可使用。
 
-无需挂载硬件，无需指定容器。
+无需挂载硬件驱动，无需指定runner镜像。
+
+## 测试使用
+以`https://github.com/cllouud-7-org/repo1`仓库为例，配置单卡runner和2卡runner
+
+
+测试 workflow:
+https://github.com/cllouud-7-org/repo1/actions/runs/13408031627
+
+
+如果需要，请联系aloudapple@163.com。
